@@ -140,13 +140,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showDialog(message: String){
         val builder = AlertDialog.Builder(this)
-//        builder.setTitle("Hi there")
         builder.setMessage(message)
-        //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
-
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-//            Toast.makeText(applicationContext,
-//                android.R.string.yes, Toast.LENGTH_SHORT).show()
         }
         builder.show()
     }

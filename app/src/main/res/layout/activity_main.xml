@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnInsertHeartRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert Workout Session"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:enabled="false"
+        app:layout_constraintVertical_bias="0.133"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/btnReadHeartRate"
+        android:layout_width="232dp"
+        android:layout_height="45dp"
+        android:enabled="false"
+        android:text="Read Sesion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInsertHeartRate"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <Button
+        android:id="@+id/btnDeleteHeartRate"
+        android:layout_width="230dp"
+        android:layout_height="49dp"
+        android:enabled="false"
+        android:text="Delete Session"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReadHeartRate"
+        app:layout_constraintVertical_bias="0.067" />
+</androidx.constraintlayout.widget.ConstraintLayout>

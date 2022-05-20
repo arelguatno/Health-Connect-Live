@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun readDataRange(){
+        var recordCount = 0;
         val response =
             healthConnectClient.readRecords(
                 ReadRecordsRequest(
@@ -88,8 +89,14 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         response.records.forEach {
+            ++recordCount
             Log.d(TAG, it.title.toString())
-            showDialog("Yay! We found: " + it.title.toString())
+        }
+
+        if (recordCount >=1){
+            showDialog("Yay! We found: " + recordCount.toString() + " workout(s)")
+        }else{
+            showToast("No record found!")
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.ahp_live
 
 import android.os.Bundle
+import android.os.RemoteException
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -16,9 +17,9 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.time.Instant
 import java.time.ZoneOffset
-import java.util.*
 
 //https://github.com/arelguatno/Health-Connect-Live
 class MainActivity : AppCompatActivity() {
@@ -26,8 +27,10 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity";
 
     private var workoutName = "Afternoon Run"
-    private var startTime = "2022-05-19T01:00:00.750Z"
-    private var endTime = "2022-05-19T01:30:00.750Z"
+
+    //30 mins run
+    private var startTime = "2022-05-24T01:00:00.750Z"
+    private var endTime = "2022-05-24T01:30:00.750Z"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +49,34 @@ class MainActivity : AppCompatActivity() {
 
         btnInsertHeartRate.setOnClickListener{
             GlobalScope.launch(Dispatchers.Main) {
-                insertSession();
+                try {
+                    insertSession();
+                } catch(e: Exception) {
+                    // Handle exception
+                    showToast(e.message);
+                }
             }
         }
 
         btnReadHeartRate.setOnClickListener{
             GlobalScope.launch(Dispatchers.Main) {
-                readDataRange();
+                try {
+                    readDataRange();
+                } catch(e: Exception) {
+                    // Handle exception
+                    showToast(e.message);
+                }
             }
         }
 
         btnDeleteHeartRate.setOnClickListener{
             GlobalScope.launch(Dispatchers.Main) {
-                deleteDataByRange();
+                try {
+                    deleteDataByRange();
+                } catch(e: Exception) {
+                    // Handle exception
+                    showToast(e.message);
+                }
             }
         }
     }
@@ -96,14 +114,15 @@ class MainActivity : AppCompatActivity() {
         if (recordCount >=1){
             showDialog("Yay! We found: " + recordCount.toString() + " workout(s)")
         }else{
-            showToast("No record found!")
+            showToast("No record found")
         }
     }
 
     private suspend fun deleteDataByRange() {
         val response = healthConnectClient.deleteRecords(
             ActivitySession::class,
-            timeRangeFilter = TimeRangeFilter.between(Instant.parse(startTime), Instant.parse(endTime))
+            uidsList = listOf("14d84a0a-37be-4d7a-8526-768a15a2b7da"),
+            clientIdsList = emptyList()
         )
         Log.d(TAG, "Session deleted");
         showDialog("$workoutName workout is deleted")
@@ -153,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun showToast(message: String){
+    private fun showToast(message: String?){
        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
